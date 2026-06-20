@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="小爪帮帮 PawHelp：双语流浪猫狗求助文案与图片卡片生成器。">
+  <meta name="theme-color" content="#E9825A">
+  <meta name="color-scheme" content="light">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="PawHelp">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>小爪帮帮 PawHelp</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="brand-lockup">
+        <img class="brand-icon" src="icons/icon-192.png" alt="" width="74" height="74">
+        <div>
+          <p class="eyebrow" data-i18n="eyebrow">给流浪的小爪一点声音</p>
+          <h1><span data-i18n="brandZh">小爪帮帮</span> <em data-i18n="brandEn">PawHelp</em></h1>
+          <p class="tagline" data-i18n="tagline">把遇见写清楚，让帮助更容易发生。</p>
+        </div>
+      </div>
+      <div class="hero-animals" aria-hidden="true">
+        <span class="heart">♥</span>
+        <span class="animal-face dog-face">ᴖᴥᴖ</span>
+        <span class="animal-face cat-face">=^･ω･^=</span>
+      </div>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="zh" class="active">中文</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="panel intake-panel" aria-labelledby="formTitle">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker" data-i18n="stepOne">01 · 填写救助卡</span>
+            <h2 id="formTitle" data-i18n="formTitle">告诉我们你看见了什么</h2>
+          </div>
+          <button type="button" class="text-button" id="fillExample" data-i18n="fillExample">填入示例</button>
+        </div>
+
+        <form id="rescueForm">
+          <div class="form-section">
+            <div class="form-section-icon peach" aria-hidden="true">🐾</div>
+            <div class="form-section-copy">
+              <h3 data-i18n="animalInfo">动物信息</h3>
+              <p data-i18n="animalInfoHint">先写你能确定的，不确定的可以留空。</p>
+            </div>
+            <div class="field-grid two">
+              <label>
+                <span data-i18n="animalType">动物</span>
+                <select id="animal" name="animal"></select>
+              </label>
+              <label>
+                <span data-i18n="age">年龄阶段</span>
+                <select id="age" name="age"></select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-icon pink" aria-hidden="true">♡</div>
+            <div class="form-section-copy">
+              <h3 data-i18n="helpNeeded">需要什么帮助</h3>
+              <p data-i18n="helpNeededHint">选择现在最重要的一件事。</p>
+            </div>
+            <div class="field-grid two">
+              <label>
+                <span data-i18n="condition">目前情况</span>
+                <select id="condition" name="condition"></select>
+              </label>
+              <label>
+                <span data-i18n="helpType">主要需求</span>
+                <select id="helpType" name="helpType"></select>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-icon green" aria-hidden="true">⌖</div>
+            <div class="form-section-copy">
+              <h3 data-i18n="whereContact">地点与联系</h3>
+              <p data-i18n="whereContactHint">公开内容中尽量不要写过细的私人地址。</p>
+            </div>
+            <div class="field-grid two">
+              <label>
+                <span data-i18n="location">发现地点</span>
+                <input id="location" name="location" maxlength="48" autocomplete="street-address" data-i18n-placeholder="locationPlaceholder" placeholder="如：阳光花园北门">
+              </label>
+              <label>
+                <span data-i18n="contact">联系方式</span>
+                <input id="contact" name="contact" maxlength="48" autocomplete="tel" data-i18n-placeholder="contactPlaceholder" placeholder="如：私信我 / 电话">
+              </label>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section-icon yellow" aria-hidden="true">✦</div>
+            <div class="form-section-copy">
+              <h3 data-i18n="voicePlatform">语气与平台</h3>
+              <p data-i18n="voicePlatformHint">文案会随平台稍微调整节奏。</p>
+            </div>
+            <div class="field-grid three">
+              <label>
+                <span data-i18n="tone">语气</span>
+                <select id="tone" name="tone"></select>
+              </label>
+              <label>
+                <span data-i18n="platform">发布平台</span>
+                <select id="platform" name="platform"></select>
+              </label>
+              <label>
+                <span data-i18n="length">文字长度</span>
+                <select id="length" name="length"></select>
+              </label>
+            </div>
+            <label class="wide-field">
+              <span data-i18n="details">补充观察</span>
+              <textarea id="details" name="details" rows="3" maxlength="180" data-i18n-placeholder="detailsPlaceholder" placeholder="如：左后腿不敢着地，躲在灌木旁，可以靠近"></textarea>
+              <small><span id="detailCount">0</span>/180</small>
+            </label>
+          </div>
+
+          <button class="primary-button generate-button" type="submit">
+            <span aria-hidden="true">✦</span>
+            <span data-i18n="generate">生成求助文案与卡片</span>
+          </button>
+          <p class="privacy-note"><span aria-hidden="true">♢</span> <span data-i18n="privacy">内容只保存在你的浏览器里，不上传服务器。</span></p>
+        </form>
+      </section>
+
+      <section class="panel result-panel" id="resultSection" aria-labelledby="resultTitle">
+        <div class="section-heading compact">
+          <div>
+            <span class="section-kicker" data-i18n="stepTwo">02 · 可直接转发</span>
+            <h2 id="resultTitle" data-i18n="generatedPost">生成的求助文案</h2>
+          </div>
+          <button type="button" class="text-button" id="historyButton"><span data-i18n="history">历史记录</span> <span id="historyCount" class="count-badge">0</span></button>
+        </div>
+        <article class="generated-post" id="generatedPost" aria-live="polite">
+          <div class="post-topline"><span class="sparkle">✦</span><h3 id="postTitle"></h3></div>
+          <p id="postBody"></p>
+          <div class="post-meta" id="postMeta"></div>
+          <div class="post-actions">
+            <button type="button" id="copyPost">▣ <span data-i18n="copyText">复制文案</span></button>
+            <button type="button" id="sharePost">⌁ <span data-i18n="share">分享</span></button>
+            <button type="button" id="editPost">✎ <span data-i18n="edit">继续编辑</span></button>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel studio-panel" aria-labelledby="studioTitle">
+        <div class="section-heading studio-heading">
+          <div>
+            <span class="section-kicker" data-i18n="stepThree">03 · 图片卡片工作室</span>
+            <h2 id="studioTitle" data-i18n="studioTitle">做一张真正能转发的求助卡</h2>
+            <p data-i18n="studioHint">换模板不会清空内容，下载始终可用。</p>
+          </div>
+          <div class="ratio-switch" id="ratioSwitch" role="group" aria-label="Aspect ratio">
+            <button type="button" data-ratio="1:1">1:1</button>
+            <button type="button" data-ratio="3:4">3:4</button>
+            <button type="button" data-ratio="4:5" class="active">4:5</button>
+            <button type="button" data-ratio="9:16">9:16</button>
+            <button type="button" data-ratio="16:9">16:9</button>
+          </div>
+        </div>
+
+        <div class="studio-grid">
+          <div class="canvas-column">
+            <div class="canvas-stage"><canvas id="cardCanvas" width="1080" height="1350" aria-label="Generated rescue card preview"></canvas></div>
+            <div class="canvas-actions">
+              <button class="secondary-button" type="button" id="shareCard">⌁ <span data-i18n="shareCard">分享图片</span></button>
+              <button class="download-button" type="button" id="downloadCard">⇩ <span data-i18n="downloadPng">下载高清 PNG</span></button>
+            </div>
+            <p class="quality-note" data-i18n="qualityNote">离线可用 · 高清导出 · 无水印遮挡</p>
+          </div>
+
+          <div class="template-column">
+            <div class="template-title-row">
+              <h3 data-i18n="templates">选择模板</h3>
+              <span id="templatePosition">1 / 10</span>
+            </div>
+            <div class="template-scroller" id="templateScroller" aria-label="Templates"></div>
+            <div class="card-note">
+              <span class="mini-paw" aria-hidden="true">🐾</span>
+              <div><strong data-i18n="cardTipTitle">小提醒</strong><p data-i18n="cardTip">卡片负责让人停下来，完整情况放在配套文案里更好读。</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="install-card">
+        <img src="icons/icon-192.png" alt="" width="58" height="58">
+        <div><strong data-i18n="installTitle">把小爪帮帮带在手机里</strong><p data-i18n="installText">添加到手机桌面，遇到流浪猫狗时可以快速打开。</p></div>
+        <button type="button" id="installButton" data-i18n="installHow">如何添加到桌面</button>
+      </section>
+    </main>
+
+    <footer>
+      <p><span aria-hidden="true">♡</span> PawHelp Writer · <span data-i18n="footer">愿每一次被看见，都离帮助更近一点。</span></p>
+      <p class="footer-disclaimer" data-i18n="disclaimer">请以现场观察为准；受伤动物应尽快联系专业救助或宠物医院。</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="installDialog">
+    <form method="dialog" class="dialog-card">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <img src="icons/icon-192.png" alt="" width="82" height="82">
+      <h2 data-i18n="installDialogTitle">添加 PawHelp 到主屏幕</h2>
+      <div class="install-steps" id="installSteps"></div>
+      <button class="primary-button" value="close" data-i18n="gotIt">知道了</button>
+    </form>
+  </dialog>
+
+  <dialog id="historyDialog">
+    <div class="dialog-card history-card">
+      <button class="dialog-close" id="closeHistory" aria-label="Close">×</button>
+      <h2 data-i18n="historyTitle">最近生成</h2>
+      <div id="historyList" class="history-list"></div>
+      <button class="danger-text" type="button" id="clearHistory" data-i18n="clearHistory">清空本机记录</button>
+    </div>
+  </dialog>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
