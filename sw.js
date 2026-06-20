@@ -1,4 +1,4 @@
-const CACHE = "pawhelp-writer-v1";
+const CACHE = "pawhelp-writer-v2";
 const ASSETS = [
   "./",
   "./index.html",
@@ -36,3 +36,4 @@ self.addEventListener("fetch", (event) => {
     )
   );
 });
+
