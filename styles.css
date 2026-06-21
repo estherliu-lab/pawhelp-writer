@@ -22,6 +22,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html { scroll-behavior: smooth; }
 
@@ -352,6 +353,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); box-sh
 .install-card strong { display: block; }
 .install-card p { margin: 3px 0 0; color: var(--muted); font-size: .88rem; }
 .install-card button { padding: 10px 16px; border: 1px solid #eacbb5; border-radius: 999px; color: var(--primary-deep); background: #fff7ef; font-weight: 750; }
+.wechat-notice { margin: 14px 0; padding: 12px 16px; border: 1px solid #efd19f; border-radius: 16px; color: #765128; background: #fff3d9; text-align: center; font-size: .84rem; font-weight: 750; }
 
 .site-footer { padding: 30px 20px 0; color: var(--muted); text-align: center; font-size: .84rem; }
 .site-footer p { margin: 5px 0; }
@@ -377,6 +379,15 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); box-sh
   transform: translate(-50%, 14px);
   transition: opacity .2s, transform .2s;
 }
+.wechat-save-open { overflow: hidden; }
+.wechat-save-overlay { position: fixed; inset: 0; z-index: 1000; overflow-y: auto; padding-bottom: max(24px, env(safe-area-inset-bottom)); background: #171717; overscroll-behavior: contain; }
+.wechat-save-bar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 15px; color: #fff; background: rgba(23,23,23,.96); box-shadow: 0 5px 18px rgba(0,0,0,.22); }
+.wechat-save-bar strong { display: block; font-size: 1rem; }
+.wechat-save-bar p { margin: 2px 0 0; color: #d9d9d9; font-size: .76rem; }
+.wechat-save-bar button { flex: 0 0 auto; padding: 8px 14px; border: 1px solid #666; border-radius: 999px; color: #fff; background: #333; }
+.wechat-save-image-wrap { width: min(100%, 760px); margin: 0 auto; padding: 14px; }
+.wechat-save-image-wrap img { display: block; width: 100%; height: auto; background: #fff; -webkit-touch-callout: default; -webkit-user-select: auto; user-select: auto; touch-action: auto; }
+.wechat-save-fallback { width: min(calc(100% - 30px), 720px); margin: 4px auto 0; color: #d6d6d6; text-align: center; font-size: .8rem; }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 dialog { width: min(540px, calc(100% - 28px)); padding: 0; border: 0; border-radius: 28px; color: var(--text); background: transparent; }

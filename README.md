@@ -24,7 +24,7 @@ PawHelp Writer helps ordinary people turn a brief encounter with a stray animal 
 - Offline-ready PWA
 - No login and no server upload
 
-On Android, open the site in Chrome rather than the WeChat in-app browser. Use **Install app / Add to Home screen** from Chrome's menu. Image saving uses the Android share sheet first and provides an original-image fallback for long-press saving.
+On Android, the app can be used directly inside WeChat. Image saving switches to a full-screen image made for press-and-hold saving. For home-screen access, first check WeChat's top-right menu for **Add to Home screen**; when that option is unavailable, use Favorites/Floating Window or open the page in any phone browser that supports web-app installation.
 
 ### Copyright
 
@@ -52,7 +52,7 @@ Copyright © 2026 estherliu-lab / 小爪帮帮 PawHelp. All rights reserved. The
 - 支持离线使用和添加到桌面
 - 无需注册，内容仅保存在本机
 
-安卓手机请使用 Chrome 打开，不要直接在微信内置浏览器中安装。点击 Chrome 右上角菜单，选择“安装应用”或“添加到主屏幕”。保存图片时会优先打开安卓系统分享面板，也可以打开原图后长按保存。
+安卓手机可以直接在微信内使用。保存图片时会进入适合长按保存的全屏原图界面。添加桌面时先查看微信右上角菜单是否有“添加到桌面”；如果当前微信版本没有该选项，可先收藏或添加浮窗，也可以使用任何支持网页应用安装的手机浏览器，不限定 Chrome。
 
 ### 版权说明
 

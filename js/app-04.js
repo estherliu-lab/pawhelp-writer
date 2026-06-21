@@ -33,7 +33,8 @@ function renderInstallSteps() {
   const steps = $('#installSteps');
   const android = /Android/i.test(navigator.userAgent);
   const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const items = android ? [t('installAndroid'), t('installAndroidOpen'), t('installAndroidMenu'), t('installAndroidReady')] : ios ? [t('installIos')] : [t('installIos'), t('installAndroid'), t('installAndroidMenu')];
+  const wechat = /MicroMessenger/i.test(navigator.userAgent);
+  const items = wechat ? [t('installWechat'), t('installWechatMenu'), t('installWechatAlt')] : android ? [t('installAndroid'), t('installAndroidOpen'), t('installAndroidMenu'), t('installAndroidReady')] : ios ? [t('installIos')] : [t('installIos'), t('installAndroid'), t('installAndroidOpen')];
   steps.replaceChildren(...items.map((text, index) => {
     const div = document.createElement('div'); div.className = 'install-step'; div.textContent = `${ios ? '' : index + 1}  ${text}`; return div;
   }));
@@ -86,6 +87,31 @@ function fileName() {
 let savePreviewUrl = '';
 let savePreviewBlob = null;
 
+function isWechatAndroid() { return /Android/i.test(navigator.userAgent) && /MicroMessenger/i.test(navigator.userAgent); }
+
+function showWechatSave() {
+  const image = $('#wechatSaveImage');
+  image.src = $('#cardCanvas').toDataURL('image/png');
+  $('#wechatSaveOverlay').hidden = false;
+  document.body.classList.add('wechat-save-open');
+  showToast(t('wechatSaveOpened'));
+}
+
+function closeWechatSave() {
+  $('#wechatSaveOverlay').hidden = true;
+  $('#wechatSaveImage').removeAttribute('src');
+  document.body.classList.remove('wechat-save-open');
+}
+
+function configureEnvironment() {
+  const inWechat = /MicroMessenger/i.test(navigator.userAgent);
+  $('#wechatNotice').hidden = !inWechat;
+  if (inWechat) {
+    $('#saveSystemShare').hidden = true;
+    $('#openOriginal').hidden = true;
+  }
+}
+
 function directDownload(blob) {
   const url = URL.createObjectURL(blob); const link = document.createElement('a');
   link.href = url; link.download = fileName(); document.body.append(link); link.click(); link.remove();
@@ -127,6 +153,7 @@ function openOriginalImage() {
 }
 
 async function downloadCard(showMessage = true) {
+  if (isWechatAndroid()) { showWechatSave(); return null; }
   const blob = await canvasBlob($('#cardCanvas')); const android = /Android/i.test(navigator.userAgent);
   if (android) {
     const file = new File([blob], fileName(), { type: 'image/png' });
@@ -142,6 +169,7 @@ async function downloadCard(showMessage = true) {
 }
 
 async function shareCard() {
+  if (isWechatAndroid()) { showWechatSave(); return; }
   const blob = await canvasBlob($('#cardCanvas')); const file = new File([blob], fileName(), { type: 'image/png' });
   if (navigator.canShare?.({ files: [file] })) {
     try { await navigator.share({ files: [file], title: state.lastCopy.title, text: state.lastCopy.paw }); showToast(t('cardShared')); return; }
@@ -174,13 +202,15 @@ function bindEvents() {
   $('#saveCloseButton').addEventListener('click', closeSavePreview);
   $('#saveSystemShare').addEventListener('click', systemSaveOrShare);
   $('#openOriginal').addEventListener('click', openOriginalImage);
+  $('#closeWechatSave').addEventListener('click', closeWechatSave);
   $('#saveDialog').addEventListener('cancel', (event) => { event.preventDefault(); closeSavePreview(); });
   $('#ratioSwitch').addEventListener('click', (event) => {
     const button = event.target.closest('button[data-ratio]'); if (!button) return; state.ratio = button.dataset.ratio;
     $$('#ratioSwitch button').forEach((item) => item.classList.toggle('active', item === button)); drawMainCard();
   });
   $('#installButton').addEventListener('click', async () => {
-    if (state.installPrompt) { state.installPrompt.prompt(); await state.installPrompt.userChoice; state.installPrompt = null; }
+    if (/MicroMessenger/i.test(navigator.userAgent)) $('#installDialog').showModal();
+    else if (state.installPrompt) { state.installPrompt.prompt(); await state.installPrompt.userChoice; state.installPrompt = null; }
     else $('#installDialog').showModal();
   });
   $('#historyButton').addEventListener('click', () => { renderHistory(); $('#historyDialog').showModal(); });
@@ -194,8 +224,8 @@ function init() {
   renderSelects();
   const starter = { animal: 'cat', age: 'adult', condition: 'injured', helpType: 'foster', location: '', contact: '', tone: 'gentle', platform: 'xiaohongshu', length: 'medium', details: '' };
   applyData(starter); state.lastData = starter; state.lastCopy = buildCopy(starter);
-  bindEvents(); preloadTemplateImages(); renderLanguage(); renderPost(); drawMainCard(); renderHistory();
-  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js?v=6').catch(() => {});
+  bindEvents(); preloadTemplateImages(); renderLanguage(); renderPost(); drawMainCard(); renderHistory(); configureEnvironment();
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('./sw.js?v=7').catch(() => {});
 }
 
 document.addEventListener('DOMContentLoaded', init);
