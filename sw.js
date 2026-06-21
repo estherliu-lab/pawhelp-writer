@@ -1,28 +1,30 @@
-const CACHE = "pawhelp-writer-v7";
+const CACHE = "pawhelp-writer-v8";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=7",
-  "./js/app-01.js?v=7",
-  "./js/app-02.js?v=7",
-  "./js/app-03.js?v=7",
-  "./js/app-04.js?v=7",
-  "./js/app-05.js?v=7",
-  "./js/app-06.js?v=7",
-  "./js/app-07.js?v=7",
-  "./js/app-08.js?v=7",
-  "./js/app-09.js?v=7",
-  "./js/app-10.js?v=7",
-  "./manifest.webmanifest?v=7",
-  "./icons/icon-192.png?v=7",
-  "./icons/icon-512.png?v=7",
-  "./icons/apple-touch-icon.png?v=7",
-  "./assets/photos/voice-cat.jpg?v=7",
-  "./assets/photos/paper-pets.jpg?v=7",
-  "./assets/photos/urgent-cat.jpg?v=7",
-  "./assets/photos/starlight-cat.jpg?v=7",
-  "./assets/photos/polaroid-cat.jpg?v=7",
-  "./assets/photos/editorial-dog.jpg?v=7"
+  "./styles.css?v=8",
+  "./js/app-01.js?v=8",
+  "./js/app-02.js?v=8",
+  "./js/app-03.js?v=8",
+  "./js/app-04.js?v=8",
+  "./js/app-05.js?v=8",
+  "./js/app-06.js?v=8",
+  "./js/app-07.js?v=8",
+  "./js/app-08.js?v=8",
+  "./js/app-09.js?v=8",
+  "./js/app-10.js?v=8",
+  "./manifest.webmanifest?v=8",
+  "./icons/favicon-32.png?v=8",
+  "./icons/icon-96.png?v=8",
+  "./icons/icon-192.png?v=8",
+  "./icons/icon-512.png?v=8",
+  "./icons/apple-touch-icon.png?v=8",
+  "./assets/photos/voice-cat.jpg?v=8",
+  "./assets/photos/paper-pets.jpg?v=8",
+  "./assets/photos/urgent-cat.jpg?v=8",
+  "./assets/photos/starlight-cat.jpg?v=8",
+  "./assets/photos/polaroid-cat.jpg?v=8",
+  "./assets/photos/editorial-dog.jpg?v=8"
 ];
 
 self.addEventListener("install", (event) => {
@@ -51,4 +53,3 @@ self.addEventListener("fetch", (event) => {
     )
   );
 });
-

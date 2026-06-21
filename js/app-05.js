@@ -97,7 +97,7 @@ function preloadTemplateImages() {
     if (templateImages.has(template.id)) return;
     const image = new Image(); image.decoding = 'async';
     image.onload = () => { templateImages.set(template.id, image); drawMainCard(); renderTemplates(); };
-    image.src = `${template.photo}?v=7`;
+    image.src = `${template.photo}?v=8`;
   });
 }
 
@@ -167,4 +167,3 @@ function drawFooter(ctx, x, y, width, unit, color = '#7a6a5e', align = 'left') {
   ctx.fillStyle = color; ctx.font = bodyFont(unit, 20, 700); ctx.textAlign = align;
   ctx.fillText(t('footerMark'), align === 'center' ? x + width / 2 : align === 'right' ? x + width : x, y); ctx.textAlign = 'left';
 }
-

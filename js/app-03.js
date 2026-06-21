@@ -3,7 +3,20 @@ function buildCopy(data) {
   const animal = data.animal === 'cat' ? (lang === 'zh' ? '小猫' : 'cat') : data.animal === 'dog' ? (lang === 'zh' ? '小狗' : 'dog') : (lang === 'zh' ? '小动物' : 'animal');
   const age = optionLabel('age', data.age, lang);
   const location = data.location || t('unknownLocation');
-  const contact = data.contact || t('privateMessage');
+  const rawContact = (data.contact || '').trim();
+  const contact = rawContact || t('privateMessage');
+  const contactInstructionZh = !rawContact
+    ? '请私信联系'
+    : /^请/.test(rawContact)
+      ? rawContact
+      : `请联系 ${rawContact}`;
+  const contactInstructionEn = !rawContact
+    ? 'Please send a private message'
+    : /^please\b/i.test(rawContact)
+      ? rawContact
+      : /^(contact|dm|message|call|email)\b/i.test(rawContact)
+        ? `Please ${rawContact}`
+        : `Please contact ${rawContact}`;
 
   const conditionZh = {
     injured: '它看起来可能受了伤，需要尽快确认情况', weak: '它看起来有些虚弱、消瘦', pregnant: '它看起来可能怀孕了',
@@ -22,8 +35,8 @@ function buildCopy(data) {
   if (lang === 'zh') {
     const title = urgent ? `${location}这只${animal}需要尽快帮助` : `在${location}遇见一只需要帮助的${animal}`;
     const observed = data.details ? `我目前观察到：${data.details.replace(/[。.!！]+$/, '')}。` : '';
-    const shortBody = `${location}发现一只${animal}。${conditionZh}。现在需要${helpZh}，如有线索请${contact}。`;
-    const mediumBody = `在${location}发现一只${age === '不确定' ? '' : age}${animal}。${conditionZh}。${observed}现在最需要${helpZh}。如果你有相关资源或愿意搭把手，请${contact}，也谢谢帮忙转发。`;
+    const shortBody = `${location}发现一只${animal}。${conditionZh}。现在需要${helpZh}，如有线索，${contactInstructionZh}。`;
+    const mediumBody = `在${location}发现一只${age === '不确定' ? '' : age}${animal}。${conditionZh}。${observed}现在最需要${helpZh}。如果你有相关资源或愿意搭把手，${contactInstructionZh}，也谢谢帮忙转发。`;
     const fullBody = `${mediumBody}${data.condition === 'injured' ? ' 现场信息仅供参考，最好由专业人员进一步判断。' : ''}`;
     const platformTail = data.platform === 'xiaohongshu' ? '\n\n#流浪动物救助 #小动物求助' : data.platform === 'community' ? '\n\n麻烦邻居们帮忙留意，感谢。' : '';
     return { title, body: (data.length === 'short' ? shortBody : data.length === 'full' ? fullBody : mediumBody) + platformTail, cardBody: data.length === 'short' ? shortBody : mediumBody, paw: pawZh, location, contact, animal, age, help: helpZh, condition: conditionZh };
@@ -33,8 +46,8 @@ function buildCopy(data) {
   const observed = data.details ? `Observed: ${data.details.replace(/[.!]+$/, '')}. ` : '';
   const article = /^[aeiou]/i.test(age) ? 'an' : 'a';
   const agePhrase = data.age === 'unknown' ? `a ${animal}` : `${article} ${age.toLowerCase()} ${animal}`;
-  const shortBody = `A ${animal} was found near ${location}. ${conditionEn}. We are looking for ${helpEn}. Please ${contact}.`;
-  const mediumBody = `We found ${agePhrase} near ${location}. ${conditionEn}. ${observed}The most urgent need is ${helpEn}. If you have a useful contact or can help, ${contact}. Sharing is appreciated.`;
+  const shortBody = `A ${animal} was found near ${location}. ${conditionEn}. We are looking for ${helpEn}. ${contactInstructionEn}.`;
+  const mediumBody = `We found ${agePhrase} near ${location}. ${conditionEn}. ${observed}The most urgent need is ${helpEn}. If you have a useful contact or can help, ${contactInstructionEn}. Sharing is appreciated.`;
   const fullBody = `${mediumBody}${data.condition === 'injured' ? ' This is only an observation; a veterinary or rescue professional should assess the animal.' : ''}`;
   const platformTail = data.platform === 'instagram' ? '\n\n#StrayAnimalHelp #AnimalRescue' : '';
   return { title, body: (data.length === 'short' ? shortBody : data.length === 'full' ? fullBody : mediumBody) + platformTail, cardBody: data.length === 'short' ? shortBody : mediumBody, paw: pawEn, location, contact, animal, age, help: helpEn, condition: conditionEn };
@@ -76,5 +89,3 @@ function generate(data = readForm(), save = true) {
     $('#resultSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
-
-
